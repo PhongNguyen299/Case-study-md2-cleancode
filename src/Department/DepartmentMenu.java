@@ -25,12 +25,13 @@ public class DepartmentMenu {
                         "*   4. Search information department.                 *" + "\n" +
                         "*   5. Display all department.                        *" + "\n" +
                         "*   6. Display member of department.                  *" + "\n" +
-                        "*   7. Update members each department.                 *" + "\n" +
+                        "*   7. Update members each department.                *" + "\n" +
                         "*   8. Return main Menu.                              *" + "\n" +
                         "*******************************************************" + "\n");
     }
 
     public void loadMenuDepartment(){
+        updateDepartmentMember();
         int choice = -1;
         while (choice != 8) {
             showMenuDepartment();
@@ -51,6 +52,7 @@ public class DepartmentMenu {
                     search();
                     break;
                 case 5:
+                    updateDepartmentMember();
                     getDepartmentManagement().display();
                     break;
                 case 6:
@@ -86,12 +88,10 @@ public class DepartmentMenu {
     }
 
     public void addDepartment() {
-        System.out.println("Please enter information new member");
+        System.out.println("Please enter information new department");
         int id = listDepart.size()+1;
-
-        String name = inputName();
         String department = inputDepartment();
-        Department obj = new Department(name);
+        Department obj = new Department(department);
 
         getDepartmentManagement().add(id,obj);
     }
@@ -102,6 +102,9 @@ public class DepartmentMenu {
         String sure = input.nextLine().trim().toLowerCase();
 
         if (sure.equals("y")) {
+            for (int idPer: listDepart.get(id).getMemberDepartment()) {
+              getPersonnelManagement().remove(idPer);
+            };
             getDepartmentManagement().remove(id);
             return true;
         }
@@ -153,6 +156,7 @@ public class DepartmentMenu {
     }
 
     public void displayMemberOfDepartment(){
+        updateDepartmentMember();
         StringBuilder text = new StringBuilder("");
         getDepartmentManagement().display();
         int idDepart = inputID();
@@ -161,6 +165,8 @@ public class DepartmentMenu {
         };
         System.out.println(text);
     }
+
+
 
     public void updateDepartmentMember(){
         for (Map.Entry<Integer, Department> department : listDepart.entrySet()) {
@@ -171,7 +177,7 @@ public class DepartmentMenu {
                 Integer keyPer = person.getKey();
                 Personnel valuePer = person.getValue();
 
-                if (valuePer.getBelongDepartment() == valueDepart.getName()) {
+                if (valuePer.getBelongDepartment().equals(valueDepart.getName())) {
                     valueDepart.getMemberDepartment().add(keyPer);
                 }
             }

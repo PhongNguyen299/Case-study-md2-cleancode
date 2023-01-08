@@ -14,6 +14,7 @@ public class Personnel {
     private String position;
     private double salary;
     private List<Date> attendance;
+    private boolean isStatus;
 
     private Personnel(){};
 
@@ -24,6 +25,8 @@ public class Personnel {
         this.position = position;
         this.belongDepartment = belongDepartment;
         this.attendance = new LinkedList<>();
+        this.isStatus = true;
+
     }
 
     public Personnel(String name, String gender, String position,String belongDepartment){
@@ -32,6 +35,7 @@ public class Personnel {
         this.position = position;
         this.belongDepartment = belongDepartment;
         this.attendance = new LinkedList<>();
+        this.isStatus = true;
     }
 
     public void setId(int id) {
@@ -91,12 +95,21 @@ public class Personnel {
         this.attendance.add(new Date());
     }
 
+    public boolean isStatus() {
+        return isStatus;
+    }
+
+    public void setStatus(boolean status) {
+        this.isStatus = status;
+    }
+
     @Override
     public String toString() {
         return  "|| ID: " + id +
                 " || Name: " + name  +
                 " || Gender: " + gender  +
                 " || Department: " + belongDepartment  +
-                " || Position: " + position + "\n";
+                " || Position: " + position +
+                " || Status: "+ isStatus +"\n";
     }
 }

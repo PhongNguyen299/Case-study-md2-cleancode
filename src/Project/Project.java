@@ -94,4 +94,17 @@ public class Project {
     public void setIdDepartmentResponsible(int idDepartmentResponsible) {
         this.idDepartmentResponsible = idDepartmentResponsible;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", process='" + process + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", finishTime='" + finishTime + '\'' +
+                ", idDepartmentResponsible=" + idDepartmentResponsible +
+                '}';
+    }
 }

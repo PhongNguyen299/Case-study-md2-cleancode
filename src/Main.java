@@ -27,6 +27,7 @@ public class Main {
 //        new PersonnelMenu().loadMenuPersonnel();
 //        new ProjectMenu().loadMenuProject();
 //        mainMenu();
+
         new Main().login();
     }
 
@@ -37,6 +38,7 @@ public class Main {
                         "*   1. Personnel.                                     *" + "\n" +
                         "*   2. Department.                                    *" + "\n" +
                         "*   3. Project.                                       *" + "\n" +
+                        "*   0. Return login.                                  *" + "\n" +
                         "*******************************************************" + "\n");
     }
     public static void managerMenu() {
@@ -45,16 +47,16 @@ public class Main {
                         "*                         MENU                        *" + "\n" +
                         "*   1. Department.                                    *" + "\n" +
                         "*   2. Project.                                       *" + "\n" +
-                        "*   0. Exit                                           *" + "\n" +
+                        "*   3. Check in                                       *" + "\n" +
+                        "*   0. Return login.                                  *" + "\n" +
                         "*******************************************************" + "\n");
     }
     public static void staffMenu() {
         System.out.println(
                 "*******************************************************" + "\n" +
                         "*                         MENU                        *" + "\n" +
-                        "*   1. Personnel.                                     *" + "\n" +
-                        "*   2. Department.                                    *" + "\n" +
-                        "*   3. Project.                                       *" + "\n" +
+                        "*   1. Check in                                       *" + "\n" +
+                        "*   0. Return login.                                  *" + "\n" +
                         "*******************************************************" + "\n");
     }
 
@@ -66,16 +68,20 @@ public class Main {
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 2:
+                case 1:
                     new PersonnelMenu().loadMenuPersonnel();
                     break;
-                case 1:
+                case 2:
                     new DepartmentMenu().loadMenuDepartment();
                     break;
                 case 3:
                     new ProjectMenu().loadMenuProject();
                     break;
+                case 0:
+                    login();
+                    break;
                 default:
+                    choice = -4;
                     break;
             }
         }
@@ -98,7 +104,11 @@ public class Main {
                 case 3:
                     checkInDaily(id);
                     break;
+                case 0:
+                    login();
+                    break;
                 default:
+                    choice = -4;
                     break;
             }
         }
@@ -106,26 +116,27 @@ public class Main {
 
     public void loadStaffMenu(int id){
         int choice = -1;
-        while (choice != 4) {
+        while (choice != 2) {
             staffMenu();
             System.out.print("Enter your choice: ");
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
                 case 1:
-                    new PersonnelMenu().loadMenuPersonnel();
-                    break;
-                case 2:
                     checkInDaily(id);
                     break;
+                case 0:
+                    login();
+                    break;
                 default:
+                    choice = -2;
                     break;
             }
         }
     }
 
     public void login(){
-        System.out.println("Enter user name");
+        System.out.print("Enter user name: ");
         String name = input.nextLine().toLowerCase();
         System.out.print("Enter your password (ID): ");
         int id = input.nextInt();
@@ -133,12 +144,16 @@ public class Main {
 
         String position = listPerson.get(id).getPosition().toLowerCase();
         String nameId = listPerson.get(id).getName().toLowerCase();
-        if (position.equals("boss") && nameId.equals(name)){
+        boolean status = listPerson.get(id).isStatus();
+        if (position.equals("boss") && nameId.equals(name) && status == true){
             loadBossMenu(id);
-        } else if(position.equals("manager") && nameId.equals(name)){
+        } else if(position.equals("manager") && nameId.equals(name) && status == true){
             loadManagerMenu(id);
-        } else if (nameId.equals(name)){
+        } else if (nameId.equals(name) && status == true){
             loadStaffMenu(id);
+        } else {
+            System.out.println("Wrong information login or Your id is not exist, Please try again!!");
+            login();
         }
     }
 
@@ -146,10 +161,10 @@ public class Main {
         System.out.println("Please input 'HAHA' to check-in");
         String text = input.nextLine().toLowerCase();
         while (!text.equals("haha")) {
-            System.out.println("Please input again");
+            System.out.println("Please input again, Enter 'HAHA' to check in");
+            text = input.nextLine().toLowerCase();
         }
         System.out.println("You is checked");
         listPerson.get(id).checkin();
-        input.nextLine();
     }
 }

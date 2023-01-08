@@ -175,13 +175,9 @@ public class ProjectMenu {
     }
 
     public void displayDepartmentOfProject(){
-        StringBuilder text = new StringBuilder("");
         getProjectManagement().display();
-        int idDepart = inputID();
-        for (int id: listDepart.get(idDepart).getProjectContain()) {
-            text.append(listPerson.get(id).toString());
-        };
-        System.out.println(text);
+        int idProject = inputID();
+        System.out.println(listPro.get(idProject).toString());
     }
 
     public void updateProject(){

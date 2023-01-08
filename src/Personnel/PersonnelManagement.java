@@ -43,10 +43,17 @@ public final class PersonnelManagement  {
         }
     }
 
+//    public void remove(int id){
+//        Personnel person = searchById(id);
+//        if(person != null){
+//            listPersonnel.remove(id);
+//        };
+//    }
+
     public void remove(int id){
         Personnel person = searchById(id);
         if(person != null){
-            listPersonnel.remove(id);
+            listPersonnel.get(id).setStatus(false);
         };
     }
 
@@ -118,7 +125,8 @@ public final class PersonnelManagement  {
             Integer key = entry.getKey();
             Personnel value = entry.getValue();
             text.append( key + "  || " + value.getName() + "|| Gender: " + value.getGender() + "|| Position: "
-                    + value.getPosition() + "|| Department: " + value.getBelongDepartment() + ".\n");
+                    + value.getPosition() + "|| Department: "
+                    + value.getBelongDepartment() + " || status: "+ value.isStatus()+ ".\n");
         }
         System.out.println(text);
     }

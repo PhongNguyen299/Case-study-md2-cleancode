@@ -74,8 +74,8 @@ public final class DepartmentManagement {
         for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
             Integer key = entry.getKey();
             Department value = entry.getValue();
-            text.append( key + "  || " + value.getName() + "amount of department's member: "
-                    +listDepartment.get(key).getMemberDepartment().size()+"\n" );
+            text.append( key + "  || " + value.getName() + " amount of department's member: "
+                    + listDepartment.get(key).getMemberDepartment().size()+"\n" );
         }
         System.out.println(text);
     }

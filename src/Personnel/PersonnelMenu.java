@@ -106,23 +106,23 @@ public class PersonnelMenu {
         getPersonnelManagement().add(id, obj);
     }
 
-    public boolean removePer() {
+    public void removePer() {
         int id = inputID();
         System.out.println("Are you sure? (Y/N)");
         String sure = input.nextLine().trim().toLowerCase();
 
         if (sure.equals("y")) {
             getPersonnelManagement().remove(id);
-            return true;
+        } else {
+            System.out.println("Remove fail");
         }
-        return false;
     }
 
     public void search() {
         int choice = -1;
         while (choice != 0) {
             System.out.println(
-                    "what's information you want to search?" + "\n" +
+                    "What's information you want to search?" + "\n" +
                             "1. Id" + "\n" +
                             "2. Name" + "\n" +
                             "3. Gender" + "\n" +
