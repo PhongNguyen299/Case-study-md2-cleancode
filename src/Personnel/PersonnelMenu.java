@@ -12,6 +12,10 @@ import static Department.DepartmentManagement.*;
 
 
 public class PersonnelMenu {
+    Scanner input = new Scanner(System.in);
+    Map<Integer, Department> listDepart = getDepartmentManagement().getListDepartment();
+    Map<Integer, Personnel> listPerson = getPersonnelManagement().getListPersonnel();
+
     public static void showMenuPersonnel() {
         System.out.println(
                 "*******************************************************" + "\n" +
@@ -26,9 +30,6 @@ public class PersonnelMenu {
                         "*******************************************************" + "\n");
     }
 
-    Scanner input = new Scanner(System.in);
-    List<Department> listDepart = getDepartmentManagement().getListDepartment();
-    Map<Integer, Personnel> listPerson = getPersonnelManagement().getListPersonnel();
 
     public void loadMenuPersonnel(){
         int choice = -1;
@@ -92,39 +93,17 @@ public class PersonnelMenu {
         return gender;
     }
 
-    public int checkIdExist(int id) {
-        if (!listDepart.isEmpty()) {
-            while (listPerson.containsKey(id)) {
-                System.out.println("Your Id is exist, please try other id");
-                System.out.println("Ids are exist: ");
-                for (Map.Entry<Integer, Personnel> entry : listPerson.entrySet()) {
-                    Integer key = entry.getKey();
-                    System.out.print(key + " ");
-                }
-                System.out.println();
-                id = inputID();
-            }
-        }
-        return id;
-    }
-
     public void addPer() {
         System.out.println("Please enter information new member");
-        int id = inputID();
-        id = checkIdExist(id);
+        int id = listPerson.size()+1;
 
         String name = inputName();
         String gender = inputGender();
         String position = inputPosition();
         String department = inputDepartment();
-        Personnel obj = new Personnel(id, name, gender, position, department);
+        Personnel obj = new Personnel(id,name, gender, position, department);
 
         getPersonnelManagement().add(id, obj);
-        for (Department el : listDepart) {
-            if (el.getName().equals(department)) {
-                el.setAmount(el.getAmount() + 1);
-            }
-        }
     }
 
     public boolean removePer() {
@@ -132,14 +111,8 @@ public class PersonnelMenu {
         System.out.println("Are you sure? (Y/N)");
         String sure = input.nextLine().trim().toLowerCase();
 
-        if (sure == "y") {
+        if (sure.equals("y")) {
             getPersonnelManagement().remove(id);
-
-            for (Department el : listDepart) {
-                if (el.getName().equals(listPerson.get(id).getBelongDepartment())) {
-                    el.setAmount(el.getAmount() - 1);
-                }
-            }
             return true;
         }
         return false;
@@ -208,16 +181,6 @@ public class PersonnelMenu {
         }
     }
 
-    public void checkInDaily() {
-        int id = inputID();
-        System.out.println("Please input 'HAHA' to check-in");
-        String text = input.nextLine().toLowerCase();
-        while (!text.equals("haha")) {
-            System.out.println("Please input again");
-        }
-        listPerson.get(id).checkin();
-        input.nextLine();
-    }
 
     public void displaySalary() {
         String text = "";

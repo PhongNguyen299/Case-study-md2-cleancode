@@ -7,17 +7,17 @@ import java.util.List;
 
 public class Project {
     int id;
-    String name;
+    private String name;
 
-    String description;
+    private String description;
 
-    String process;
+    private String process;
 
-    String startTime;
+    private String startTime;
 
-    String finishTime;
+    private String finishTime;
+    private int idDepartmentResponsible;
 
-    List <Department> departmentResponsible = new LinkedList();
 
     public Project(){}
 
@@ -30,14 +30,13 @@ public class Project {
         this.finishTime = "Not yet";
     }
 
-    public Project(int id, String name,String description,String startTime,Department department){
+    public Project(int id, String name,String description,String startTime,int idDepartmentResponsible){
         this.id = id;
         this.name = name;
         this.description = description;
         this.process = "doing";
         this.startTime = startTime;
         this.finishTime = "Not yet";
-        this.departmentResponsible.add(department);
     }
 
     public int getId() {
@@ -88,11 +87,11 @@ public class Project {
         this.finishTime = finishTime;
     }
 
-    public List<Department> getDepartmentResponsible() {
-        return departmentResponsible;
+    public int getIdDepartmentResponsible() {
+        return idDepartmentResponsible;
     }
 
-    public void addDepartmentResponsible(Department department){
-        this.departmentResponsible.add(department);
+    public void setIdDepartmentResponsible(int idDepartmentResponsible) {
+        this.idDepartmentResponsible = idDepartmentResponsible;
     }
 }

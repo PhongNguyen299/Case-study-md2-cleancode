@@ -1,21 +1,21 @@
 package Department;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import Department.Department;
+
+import java.util.*;
 
 
 public final class DepartmentManagement {
     private static volatile DepartmentManagement departmentManagement;
-    private List<Department> listDepartment;
+    private Map <Integer,Department> listDepartment;
 
-    private Scanner input = new Scanner(System.in);
+
 
     private DepartmentManagement(){
-        listDepartment = new LinkedList<>();
-        listDepartment.add( new Department(1,"Marketing",10));
-        listDepartment.add( new Department(2,"Accounting",7));
-        listDepartment.add( new Department(3,"Finance",9));
+        listDepartment = new HashMap<Integer, Department>();
+        listDepartment.put(1,new Department("Marketing"));
+        listDepartment.put(2,new Department("Accounting"));
+        listDepartment.put(3,new Department("Finance"));
     };
 
     public static DepartmentManagement getDepartmentManagement(){
@@ -29,7 +29,56 @@ public final class DepartmentManagement {
         return departmentManagement;
     }
 
-    public List<Department> getListDepartment() {
+    public Map<Integer,Department> getListDepartment() {
         return listDepartment;
     }
+
+    public void add(int id, Department department){
+        if (department != null){
+            listDepartment.put(id, department);
+        }
+    }
+
+    public void remove(int id){
+            listDepartment.remove(id);
+    }
+
+    public Department searchById(int id) {
+        return listDepartment.get(id);
+    }
+
+    public StringBuilder searchByName(String name){
+        StringBuilder text = new StringBuilder("");
+        for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
+            Integer key = entry.getKey();
+            Department value = entry.getValue();
+
+            if (name.equals(value.getName())) {
+                text.append(listDepartment.get(key).toString());
+            }
+        }
+        return text;
+    }
+
+
+    public void fixName(Department obj, String name){
+        obj.setName(name);
+    }
+
+    public void displayById(int id){
+        this.searchById(id).toString();
+    }
+
+    public void display() {
+        StringBuilder text = new StringBuilder("");
+        for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
+            Integer key = entry.getKey();
+            Department value = entry.getValue();
+            text.append( key + "  || " + value.getName() + "amount of department's member: "
+                    +listDepartment.get(key).getMemberDepartment().size()+"\n" );
+        }
+        System.out.println(text);
+    }
+
+
 }

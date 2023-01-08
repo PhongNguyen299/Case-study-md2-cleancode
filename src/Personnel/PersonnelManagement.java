@@ -7,19 +7,19 @@ import Department.DepartmentManagement;
 public final class PersonnelManagement  {
     private static volatile PersonnelManagement personnelManagement;
     private Map<Integer, Personnel> listPersonnel;
-    private static Scanner input = new Scanner(System.in);
+
 
     private PersonnelManagement() {
         listPersonnel = new HashMap<>();
-        listPersonnel.put(1, new Personnel(1, "Luong", "Male", "Manager", "Finance"));
-        listPersonnel.put(2, new Personnel(2, "Hieu", "Male", "StaffWC", "Marketing"));
-        listPersonnel.put(3, new Personnel(3, "Phong Xoan", "Male", "Design", "Accounting"));
-        listPersonnel.put(4, new Personnel(4, "Hien", "Female", "Thief", "Marketing"));
-        listPersonnel.put(5, new Personnel(5, "Vu", "Male", "Staff", "Marketing"));
-        listPersonnel.put(6, new Personnel(6, "Tung", "Bisexual", "Dancer", "Accounting"));
-        listPersonnel.put(7, new Personnel(7, "Minh", "Male", "Teacher", "Finance"));
-        listPersonnel.put(8, new Personnel(8, "Tran", "Female", "QA", "Marketing"));
-        listPersonnel.put(9, new Personnel(9, "Si Phong", "Male", "Boss", "Accounting"));
+        listPersonnel.put(1, new Personnel(1,"Luong", "Male", "Manager", "Finance"));
+        listPersonnel.put(2, new Personnel(2,"Hieu", "Male", "StaffWC", "Marketing"));
+        listPersonnel.put(3, new Personnel(3,"Phong Xoan", "Male", "Design", "Accounting"));
+        listPersonnel.put(4, new Personnel(4,"Hien", "Female", "Thief", "Marketing"));
+        listPersonnel.put(5, new Personnel(5,"Vu", "Male", "Staff", "Marketing"));
+        listPersonnel.put(6, new Personnel(6,"Tung", "Bisexual", "Dancer", "Accounting"));
+        listPersonnel.put(7, new Personnel(7,"Minh", "Male", "Teacher", "Finance"));
+        listPersonnel.put(8, new Personnel(8,"Tran", "Female", "QA", "Marketing"));
+        listPersonnel.put(9, new Personnel(9,"Si Phong", "Male", "Boss", "Accounting"));
     }
 
     public static PersonnelManagement getPersonnelManagement() {
@@ -110,6 +110,7 @@ public final class PersonnelManagement  {
     public void displayPersonnelById(int id){
         this.searchById(id).toString();
     }
+
 
     public void display() {
         StringBuilder text = new StringBuilder("");

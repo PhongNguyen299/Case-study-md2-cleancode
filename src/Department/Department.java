@@ -12,14 +12,15 @@ public class Department {
 
     private String function;
 
-    private List <Project> projectContain;
-    private List <Personnel> memberDepartment;
+    private List <Integer> projectContain;
+    private List <Integer> memberDepartment;
 
     Department(){};
 
-    Department(int id,String name){
-        this.id = id;
+    Department(String name){
         this.name = name;
+        memberDepartment = new ArrayList<>();
+        projectContain = new ArrayList<>();
     }
     Department(int id,String name, int amount){
         this.id = id;
@@ -51,19 +52,15 @@ public class Department {
         this.amount = amount;
     }
 
-    public void addProjectContain(Project project) {
-        this.projectContain.add(project);
-    }
-
-    public List<Project> getProjectContain() {
+    public List<Integer> getProjectContain() {
         return projectContain;
     }
 
-    public List<Personnel> getMemberDepartment() {
+    public List<Integer> getMemberDepartment() {
         return memberDepartment;
     }
 
-    public void setMemberDepartment(List<Personnel> memberDepartment) {
+    public void setMemberDepartment(List<Integer> memberDepartment) {
         this.memberDepartment = memberDepartment;
     }
 }

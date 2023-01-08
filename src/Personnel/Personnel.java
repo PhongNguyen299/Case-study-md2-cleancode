@@ -18,6 +18,7 @@ public class Personnel {
     private Personnel(){};
 
     public Personnel(int id,String name, String gender, String position,String belongDepartment){
+        this.id = id;
         this.name = name;
         this.gender = gender;
         this.position = position;
@@ -92,12 +93,10 @@ public class Personnel {
 
     @Override
     public String toString() {
-        return "Personnel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", belongDepartment='" + belongDepartment + '\'' +
-                ", position='" + position + '\'' +
-                '}';
+        return  "|| ID: " + id +
+                " || Name: " + name  +
+                " || Gender: " + gender  +
+                " || Department: " + belongDepartment  +
+                " || Position: " + position + "\n";
     }
 }
