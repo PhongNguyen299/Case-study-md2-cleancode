@@ -1,7 +1,9 @@
 package Department;
 
 import Department.Department;
+import Personnel.Personnel;
 
+import java.io.*;
 import java.util.*;
 
 
@@ -9,13 +11,12 @@ public final class DepartmentManagement {
     private static volatile DepartmentManagement departmentManagement;
     private Map <Integer,Department> listDepartment;
 
-
-
     private DepartmentManagement(){
         listDepartment = new HashMap<Integer, Department>();
-        listDepartment.put(1,new Department("Marketing"));
-        listDepartment.put(2,new Department("Accounting"));
-        listDepartment.put(3,new Department("Finance"));
+        read();
+//        listDepartment.put(1,new Department("Marketing"));
+//        listDepartment.put(2,new Department("Accounting"));
+//        listDepartment.put(3,new Department("Finance"));
     };
 
     public static DepartmentManagement getDepartmentManagement(){
@@ -80,5 +81,46 @@ public final class DepartmentManagement {
         System.out.println(text);
     }
 
+    public void read(){
+        listDepartment.clear();
+        try {
+            File inFile = new File("src/FileText/Department.txt");
+            FileReader fileReader = new FileReader(inFile);
+            BufferedReader reader = new BufferedReader(fileReader);
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                Department department = handleLine(line.trim());
+                add(department.getId(), department);
+            }
+            reader.close();
+            fileReader.close();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void write(){
+        BufferedWriter bufferedWriter = null;
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("src/FileText/Department.txt");
+            bufferedWriter = new BufferedWriter(fileWriter);
+            for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
+                Department value = entry.getValue();
+                bufferedWriter.write(value.toFile());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+            fileWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Department handleLine(String line){
+        String[] strings = line.split(",");
+        return new Department(Integer.parseInt(strings[0]),strings[1]);
+    }
 }

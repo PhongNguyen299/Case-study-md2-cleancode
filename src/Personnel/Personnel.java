@@ -38,10 +38,6 @@ public class Personnel {
         this.isStatus = true;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
@@ -56,10 +52,6 @@ public class Personnel {
 
     public String getGender() {
         return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getBelongDepartment() {
@@ -102,14 +94,17 @@ public class Personnel {
     public void setStatus(boolean status) {
         this.isStatus = status;
     }
+    public String toFile(){
+        return id + "," + name + "," + gender  + "," + position + ","  + belongDepartment+ ","+ isStatus;
+    }
 
     @Override
     public String toString() {
         return  "|| ID: " + id +
                 " || Name: " + name  +
                 " || Gender: " + gender  +
-                " || Department: " + belongDepartment  +
                 " || Position: " + position +
+                " || Department: " + belongDepartment  +
                 " || Status: "+ isStatus +"\n";
     }
 }

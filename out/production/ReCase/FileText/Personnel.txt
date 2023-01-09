@@ -1,0 +1,9 @@
+1,Luong,Male,Manager,Finance,true
+2,Hieu,Male,StaffWC,Marketing,true
+3,Phong Xoan,Male,Design,Accounting,true
+4,Hien,Female,Thief,Marketing,true
+5,Vu,Male,Staff,Marketing,true
+6,Tung,Bisexual,Dancer,Accounting,true
+7,Minh,Male,Teacher,Finance,true
+8,Tran,Female,QA,Marketing,true
+9,Si Phong,Male,Boss,Accounting,true

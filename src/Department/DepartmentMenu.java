@@ -1,33 +1,37 @@
 package Department;
 import java.util.Map;
 import java.util.Scanner;
-import Department.Department;
 import Personnel.Personnel;
+import Project.Project;
 
 import static Department.DepartmentManagement.getDepartmentManagement;
-import static Department.DepartmentManagement.getDepartmentManagement;
 import static Personnel.PersonnelManagement.getPersonnelManagement;
+import static Project.ProjectManagement.getProjectManagement;
 
 public class DepartmentMenu {
     Scanner input = new Scanner(System.in);
     Map<Integer, Department> listDepart = getDepartmentManagement().getListDepartment();
 
     Map<Integer, Personnel> listPerson = getPersonnelManagement().getListPersonnel();
+    Map<Integer, Project> listProject = getProjectManagement().getListProject();
 
 
     public static void showMenuDepartment() {
         System.out.println(
-                "*******************************************************" + "\n" +
-                        "*                         MENU                        *" + "\n" +
-                        "*   1. Add new department.                            *" + "\n" +
-                        "*   2. Remove department.                             *" + "\n" +
-                        "*   3. Change department.                             *" + "\n" +
-                        "*   4. Search information department.                 *" + "\n" +
-                        "*   5. Display all department.                        *" + "\n" +
-                        "*   6. Display member of department.                  *" + "\n" +
-                        "*   7. Update members each department.                *" + "\n" +
-                        "*   8. Return main Menu.                              *" + "\n" +
-                        "*******************************************************" + "\n");
+                """
+                        *******************************************************
+                        *                         MENU                        *
+                        *   1. Add new department.                            *
+                        *   2. Remove department.                             *
+                        *   3. Change department.                             *
+                        *   4. Search information department.                 *
+                        *   5. Display all department.                        *
+                        *   6. Display members of department.                 *
+                        *   7. Display projects of department.                *
+                        *   8. Update members each department.                *
+                        *   9. Return main Menu.                              *
+                        *******************************************************
+                        """);
     }
 
     public void loadMenuDepartment(){
@@ -39,30 +43,19 @@ public class DepartmentMenu {
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
-                    addDepartment();
-                    break;
-                case 2:
-                    removeDepartment();
-                    break;
-                case 3:
-                    fixDepartment();
-                    break;
-                case 4:
-                    search();
-                    break;
-                case 5:
+                case 1 -> addDepartment();
+                case 2 -> removeDepartment();
+                case 3 -> fixDepartment();
+                case 4 -> search();
+                case 5 -> {
                     updateDepartmentMember();
                     getDepartmentManagement().display();
-                    break;
-                case 6:
-                    displayMemberOfDepartment();
-                    break;
-                case 7:
-                    updateDepartmentMember();
-                    break;
-                default:
-                    break;
+                }
+                case 6 -> displayMemberOfDepartment();
+                case 7 -> displayProjectOfDepartment();
+                case 8 -> updateDepartmentMember();
+                default -> {
+                }
             }
         }
     }
@@ -76,15 +69,13 @@ public class DepartmentMenu {
 
     public String inputName() {
         System.out.print("Enter name: ");
-        String name = input.nextLine();
-        return name;
+        return input.nextLine();
     }
 
 
     public String inputDepartment() {
         System.out.print("Enter Department: ");
-        String department = input.nextLine();
-        return department;
+        return input.nextLine();
     }
 
     public void addDepartment() {
@@ -96,7 +87,7 @@ public class DepartmentMenu {
         getDepartmentManagement().add(id,obj);
     }
 
-    public boolean removeDepartment() {
+    public void removeDepartment() {
         int id = inputID();
         System.out.println("Are you sure? (Y/N)");
         String sure = input.nextLine().trim().toLowerCase();
@@ -106,9 +97,7 @@ public class DepartmentMenu {
               getPersonnelManagement().remove(idPer);
             };
             getDepartmentManagement().remove(id);
-            return true;
         }
-        return false;
     }
 
 
@@ -116,21 +105,22 @@ public class DepartmentMenu {
         int choice = -1;
         while (choice != 0) {
             System.out.println(
-                    "what's information you want to search?" + "\n" +
-                            "1. Id" + "\n" +
-                            "2. Name" + "\n" +
-                            "0. Cancel");
+                    """
+                            what's information you want to search?
+                            1. Id
+                            2. Name
+                            0. Cancel""");
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
+                case 1 -> {
                     int id = inputID();
                     System.out.println(getDepartmentManagement().searchById(id));
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     String name = inputName();
                     getDepartmentManagement().searchByName(name);
-                    break;
+                }
             }
         }
     }
@@ -157,7 +147,7 @@ public class DepartmentMenu {
 
     public void displayMemberOfDepartment(){
         updateDepartmentMember();
-        StringBuilder text = new StringBuilder("");
+        StringBuilder text = new StringBuilder();
         getDepartmentManagement().display();
         int idDepart = inputID();
         for (int id: listDepart.get(idDepart).getMemberDepartment()) {
@@ -165,8 +155,16 @@ public class DepartmentMenu {
         };
         System.out.println(text);
     }
-
-
+    public void displayProjectOfDepartment(){
+        updateProjectContain();
+        StringBuilder text = new StringBuilder();
+        getDepartmentManagement().display();
+        int idDepart = inputID();
+        for (int id: listDepart.get(idDepart).getProjectContain()) {
+            text.append(listProject.get(id).toString());
+        };
+        System.out.println(text);
+    }
 
     public void updateDepartmentMember(){
         for (Map.Entry<Integer, Department> department : listDepart.entrySet()) {
@@ -178,6 +176,22 @@ public class DepartmentMenu {
                 Personnel valuePer = person.getValue();
 
                 if (valuePer.getBelongDepartment().equals(valueDepart.getName())) {
+                    valueDepart.getMemberDepartment().add(keyPer);
+                }
+            }
+        }
+    }
+
+    public void updateProjectContain(){
+        for (Map.Entry<Integer, Department> department : listDepart.entrySet()) {
+            Department valueDepart = department.getValue();
+            valueDepart.getMemberDepartment().clear();
+
+            for (Map.Entry<Integer, Project> person : listProject.entrySet()) {
+                Integer keyPer = person.getKey();
+                Project valuePer = person.getValue();
+
+                if (valuePer.getIdDepartmentResponsible() == valueDepart.getId()) {
                     valueDepart.getMemberDepartment().add(keyPer);
                 }
             }

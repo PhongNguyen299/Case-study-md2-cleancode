@@ -22,7 +22,7 @@ public class Department {
         memberDepartment = new ArrayList<>();
         projectContain = new ArrayList<>();
     }
-    Department(int id,String name, int amount){
+    Department(int id,String name){
         this.id = id;
         this.name = name;
         this.amount = amount;
@@ -62,5 +62,14 @@ public class Department {
 
     public void setMemberDepartment(List<Integer> memberDepartment) {
         this.memberDepartment = memberDepartment;
+    }
+    public String toFile(){
+        return id +","+name;
+    }
+
+    @Override
+    public String toString() {
+        return  "|| id: " + id +
+                "|| nam:  " + name + '\n';
     }
 }

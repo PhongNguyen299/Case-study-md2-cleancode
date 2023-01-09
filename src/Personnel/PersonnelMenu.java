@@ -1,35 +1,29 @@
 package Personnel;
 
 
-import Department.Department;
-
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import static Personnel.PersonnelManagement.*;
-import static Department.DepartmentManagement.*;
-
 
 public class PersonnelMenu {
     Scanner input = new Scanner(System.in);
-    Map<Integer, Department> listDepart = getDepartmentManagement().getListDepartment();
     Map<Integer, Personnel> listPerson = getPersonnelManagement().getListPersonnel();
 
     public static void showMenuPersonnel() {
         System.out.println(
-                "*******************************************************" + "\n" +
-                        "*                         MENU                        *" + "\n" +
-                        "*   1. Add new personnel.                             *" + "\n" +
-                        "*   2. Remove personnel.                              *" + "\n" +
-                        "*   3. Change personnel.                              *" + "\n" +
-                        "*   4. Search information personnel.                  *" + "\n" +
-                        "*   5. Display all personnel.                         *" + "\n" +
-                        "*   6. Display salary.                                *" + "\n" +
-                        "*   7. Return main Menu.                              *" + "\n" +
-                        "*******************************************************" + "\n");
+                """
+                        *******************************************************
+                        *                         MENU                        *
+                        *   1. Add new personnel.                             *
+                        *   2. Remove personnel.                              *
+                        *   3. Change personnel.                              *
+                        *   4. Search information personnel.                  *
+                        *   5. Display all personnel.                         *
+                        *   6. Display salary.                                *
+                        *   7. Return main Menu.                              *
+                        *******************************************************
+                        """);
     }
-
 
     public void loadMenuPersonnel(){
         int choice = -1;
@@ -71,26 +65,22 @@ public class PersonnelMenu {
 
     public String inputName() {
         System.out.print("Enter name: ");
-        String name = input.nextLine();
-        return name;
+        return input.nextLine();
     }
 
     public String inputPosition() {
         System.out.print("Enter position: ");
-        String position = input.nextLine();
-        return position;
+        return input.nextLine();
     }
 
     public String inputDepartment() {
         System.out.print("Enter Department: ");
-        String department = input.nextLine();
-        return department;
+        return input.nextLine();
     }
 
     public String inputGender() {
         System.out.print("Enter gender: ");
-        String gender = input.nextLine();
-        return gender;
+        return input.nextLine();
     }
 
     public void addPer() {
@@ -107,6 +97,7 @@ public class PersonnelMenu {
     }
 
     public void removePer() {
+
         int id = inputID();
         System.out.println("Are you sure? (Y/N)");
         String sure = input.nextLine().trim().toLowerCase();
@@ -122,37 +113,39 @@ public class PersonnelMenu {
         int choice = -1;
         while (choice != 0) {
             System.out.println(
-                    "What's information you want to search?" + "\n" +
-                            "1. Id" + "\n" +
-                            "2. Name" + "\n" +
-                            "3. Gender" + "\n" +
-                            "4. Department" + "\n" +
-                            "0. Cancel");
+                    """
+                            What's information you want to search?
+                            1. Id.
+                            2. Name.
+                            3. Gender.
+                            4. Department.
+                            0. Cancel.""");
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
+                case 1 -> {
                     int id = inputID();
                     System.out.println(getPersonnelManagement().searchById(id));
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     String name = inputName();
                     getPersonnelManagement().searchByName(name);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     String gender = inputGender();
                     getPersonnelManagement().searchByGender(gender);
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     String department = inputDepartment();
                     getPersonnelManagement().searchByDepartment(department);
-                    break;
+                }
             }
         }
     }
 
     public void fixPer() {
         int id = inputID();
+        Personnel person = listPerson.get(id);
         System.out.println(listPerson.get(id).getName());
 
         int choice = -1;
@@ -165,48 +158,46 @@ public class PersonnelMenu {
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
+                case 1 -> {
                     String name = inputName();
-                    listPerson.get(id).setName(name);
-                    break;
-                case 2:
+                    getPersonnelManagement().fixName(person,name);
+                }
+                case 2 -> {
                     String position = inputPosition();
-                    listPerson.get(id).setPosition(position);
-                    break;
-                case 3:
+                    getPersonnelManagement().fixPosition(person,position);
+                }
+                case 3 -> {
                     String department = inputDepartment();
-                    listPerson.get(id).setBelongDepartment(department);
-                    break;
+                    getPersonnelManagement().fixDepartment(person,department);
+
+                }
             }
         }
     }
 
-
     public void displaySalary() {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (Map.Entry<Integer, Personnel> entry : listPerson.entrySet()) {
             Integer key = entry.getKey();
             Personnel value = entry.getValue();
             String positionS = value.getPosition().toLowerCase();
+
             switch (positionS) {
-                case "boss":
+                case "boss" -> {
                     final double BOSS_SALARY = 30.000;
                     value.setSalary(BOSS_SALARY - value.getAttendance().size() * 1.000);
-                    text += key + " " + value.getName() + " || Position: " + value.getPosition()
-                            + " || salary : " + value.getSalary() + " per/month" + ".\n";
-                    break;
-                case "manager":
+                    text.append(key).append(" ").append(value.getName()).append(" || Position: ").append(value.getPosition()).append(" || salary : ").append(value.getSalary()).append(" per/month").append(".\n");
+                }
+                case "manager" -> {
                     final double MANAGER_SALARY = 24.000;
                     value.setSalary(MANAGER_SALARY - value.getAttendance().size() * 1.000);
-                    text += key + " " + value.getName() + " || Position: " + value.getPosition()
-                            + " || salary : " + value.getSalary() + " per/month" + ".\n";
-                    break;
-                default:
+                    text.append(key).append(" ").append(value.getName()).append(" || Position: ").append(value.getPosition()).append(" || salary : ").append(value.getSalary()).append(" per/month").append(".\n");
+                }
+                default -> {
                     final double STAFF_SALARY = 15.000;
                     value.setSalary(STAFF_SALARY - value.getAttendance().size() * 1.000);
-                    text += key + " " + value.getName() + " || Position: " + value.getPosition()
-                            + " || Salary : " + value.getSalary() + " per/month" + ".\n";
-                    break;
+                    text.append(key).append(" ").append(value.getName()).append(" || Position: ").append(value.getPosition()).append(" || salary : ").append(value.getSalary()).append(" per/month").append(".\n");
+                }
             }
         }
         System.out.println(text);

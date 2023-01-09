@@ -1,12 +1,12 @@
 import Department.Department;
 import Department.DepartmentMenu;
 import Personnel.Personnel;
-import Personnel.Personnel.*;
-import Personnel.PersonnelManagement;
+
 import Personnel.PersonnelMenu;
 import Project.Project;
 import Project.ProjectMenu;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -22,12 +22,15 @@ public class Main {
 
     Map<Integer, Project> listPro = getProjectManagement().getListProject();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        new DepartmentMenu().loadMenuDepartment();
 //        new PersonnelMenu().loadMenuPersonnel();
 //        new ProjectMenu().loadMenuProject();
 //        mainMenu();
-
+//        getPersonnelManagement().write();
+//        getPersonnelManagement().read();
+//        getDepartmentManagement().write();
+//        getDepartmentManagement().read();
         new Main().login();
     }
 
@@ -56,6 +59,7 @@ public class Main {
                 "*******************************************************" + "\n" +
                         "*                         MENU                        *" + "\n" +
                         "*   1. Check in                                       *" + "\n" +
+                        "*   2. Edit information                               *" + "\n" +
                         "*   0. Return login.                                  *" + "\n" +
                         "*******************************************************" + "\n");
     }
@@ -125,6 +129,8 @@ public class Main {
                 case 1:
                     checkInDaily(id);
                     break;
+                case 2:
+                    new PersonnelMenu().fixPer();
                 case 0:
                     login();
                     break;

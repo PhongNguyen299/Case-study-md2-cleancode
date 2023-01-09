@@ -63,7 +63,7 @@ public class ProjectMenu {
                     updateProject();
                     break;
                 default:
-
+                    System.out.println("Enter your choose again!!");
                     break;
             }
         }
