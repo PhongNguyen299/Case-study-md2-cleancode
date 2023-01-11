@@ -52,7 +52,7 @@ public class DepartmentMenu {
                     getDepartmentManagement().display();
                 }
                 case 6 -> displayMemberOfDepartment();
-                case 7 -> displayProjectOfDepartment();
+                case 7 -> displayProjectODepartment();
                 case 8 -> updateDepartmentMember();
                 default -> {
                 }
@@ -155,7 +155,7 @@ public class DepartmentMenu {
         };
         System.out.println(text);
     }
-    public void displayProjectOfDepartment(){
+    public void displayProjectODepartment(){
         updateProjectContain();
         StringBuilder text = new StringBuilder();
         getDepartmentManagement().display();

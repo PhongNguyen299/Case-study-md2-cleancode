@@ -1,6 +1,6 @@
 package Personnel;
 
-
+import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
 import static Personnel.PersonnelManagement.*;
@@ -172,6 +172,12 @@ public class PersonnelMenu {
 
                 }
             }
+        }
+    }
+
+    public void showAttendance(int id){
+        for (Date date: listPerson.get(id).getAttendance()) {
+            System.out.println(date + "\n") ;
         }
     }
 

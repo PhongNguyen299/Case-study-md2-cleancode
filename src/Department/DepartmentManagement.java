@@ -71,12 +71,11 @@ public final class DepartmentManagement {
     }
 
     public void display() {
-        StringBuilder text = new StringBuilder("");
+        StringBuilder text = new StringBuilder();
         for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
             Integer key = entry.getKey();
             Department value = entry.getValue();
-            text.append( key + "  || " + value.getName() + " amount of department's member: "
-                    + listDepartment.get(key).getMemberDepartment().size()+"\n" );
+            text.append(key).append("  || ").append(value.getName()).append(" amount of department's member: ").append(listDepartment.get(key).getMemberDepartment().size()).append("\n");
         }
         System.out.println(text);
     }
@@ -104,7 +103,7 @@ public final class DepartmentManagement {
         BufferedWriter bufferedWriter = null;
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("src/FileText/Department.txt");
+            fileWriter = new FileWriter("src/FilText/Department.txt");
             bufferedWriter = new BufferedWriter(fileWriter);
             for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
                 Department value = entry.getValue();

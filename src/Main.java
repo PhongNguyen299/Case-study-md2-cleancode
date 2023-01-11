@@ -36,35 +36,42 @@ public class Main {
 
     public static void mainMenu() {
         System.out.println(
-                "*******************************************************" + "\n" +
-                        "*                         MENU                        *" + "\n" +
-                        "*   1. Personnel.                                     *" + "\n" +
-                        "*   2. Department.                                    *" + "\n" +
-                        "*   3. Project.                                       *" + "\n" +
-                        "*   0. Return login.                                  *" + "\n" +
-                        "*******************************************************" + "\n");
+                """
+                        *******************************************************
+                        *                         MENU                        *
+                        *   1. Personnel.                                     *
+                        *   2. Department.                                    *
+                        *   3. Project.                                       *
+                        *   0. Return login.                                  *
+                        *******************************************************
+                        """);
     }
     public static void managerMenu() {
         System.out.println(
-                "*******************************************************" + "\n" +
-                        "*                         MENU                        *" + "\n" +
-                        "*   1. Department.                                    *" + "\n" +
-                        "*   2. Project.                                       *" + "\n" +
-                        "*   3. Check in                                       *" + "\n" +
-                        "*   0. Return login.                                  *" + "\n" +
-                        "*******************************************************" + "\n");
+                """
+                        *******************************************************
+                        *                         MENU                        *
+                        *   1. Department.                                    *
+                        *   2. Project.                                       *
+                        *   3. Check in                                       *
+                        *   0. Return login.                                  *
+                        *******************************************************
+                        """);
     }
     public static void staffMenu() {
         System.out.println(
-                "*******************************************************" + "\n" +
-                        "*                         MENU                        *" + "\n" +
-                        "*   1. Check in                                       *" + "\n" +
-                        "*   2. Edit information                               *" + "\n" +
-                        "*   0. Return login.                                  *" + "\n" +
-                        "*******************************************************" + "\n");
+                """
+                        *******************************************************
+                        *                         MENU                        *
+                        *   1. Check in                                       *
+                        *   2. Show attendance                                *
+                        *   3. Edit information                               *
+                        *   0. Return login.                                  *
+                        *******************************************************
+                        """);
     }
 
-    public void loadBossMenu(int id){
+    public void loadBossMenu(){
         int choice = -1;
         while (choice != 4) {
             mainMenu();
@@ -72,21 +79,11 @@ public class Main {
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
-                    new PersonnelMenu().loadMenuPersonnel();
-                    break;
-                case 2:
-                    new DepartmentMenu().loadMenuDepartment();
-                    break;
-                case 3:
-                    new ProjectMenu().loadMenuProject();
-                    break;
-                case 0:
-                    login();
-                    break;
-                default:
-                    choice = -4;
-                    break;
+                case 1 -> new PersonnelMenu().loadMenuPersonnel();
+                case 2 -> new DepartmentMenu().loadMenuDepartment();
+                case 3 -> new ProjectMenu().loadMenuProject();
+                case 0 -> login();
+                default -> choice = -4;
             }
         }
     }
@@ -99,28 +96,18 @@ public class Main {
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
-                    new DepartmentMenu().loadMenuDepartment();
-                    break;
-                case 2:
-                    new ProjectMenu().loadMenuProject();
-                    break;
-                case 3:
-                    checkInDaily(id);
-                    break;
-                case 0:
-                    login();
-                    break;
-                default:
-                    choice = -4;
-                    break;
+                case 1 -> new DepartmentMenu().loadMenuDepartment();
+                case 2 -> new ProjectMenu().loadMenuProject();
+                case 3 -> checkInDaily(id);
+                case 0 -> login();
+                default -> choice = -4;
             }
         }
     }
 
     public void loadStaffMenu(int id){
         int choice = -1;
-        while (choice != 2) {
+        while (choice != 4) {
             staffMenu();
             System.out.print("Enter your choice: ");
             choice = input.nextInt();
@@ -130,7 +117,11 @@ public class Main {
                     checkInDaily(id);
                     break;
                 case 2:
+                    new PersonnelMenu().showAttendance(id);
+                    break;
+                case 3:
                     new PersonnelMenu().fixPer();
+                    break;
                 case 0:
                     login();
                     break;
@@ -151,11 +142,11 @@ public class Main {
         String position = listPerson.get(id).getPosition().toLowerCase();
         String nameId = listPerson.get(id).getName().toLowerCase();
         boolean status = listPerson.get(id).isStatus();
-        if (position.equals("boss") && nameId.equals(name) && status == true){
-            loadBossMenu(id);
-        } else if(position.equals("manager") && nameId.equals(name) && status == true){
+        if (position.equals("boss") && nameId.equals(name) && status){
+            loadBossMenu();
+        } else if(position.equals("manager") && nameId.equals(name) && status){
             loadManagerMenu(id);
-        } else if (nameId.equals(name) && status == true){
+        } else if (nameId.equals(name) && status){
             loadStaffMenu(id);
         } else {
             System.out.println("Wrong information login or Your id is not exist, Please try again!!");

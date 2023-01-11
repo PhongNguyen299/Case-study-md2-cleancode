@@ -13,15 +13,6 @@ public final class PersonnelManagement  {
 
     private PersonnelManagement() {
         listPersonnel = new HashMap<>();
-//        listPersonnel.put(1, new Personnel(1,"Luong", "Male", "Manager", "Finance"));
-//        listPersonnel.put(2, new Personnel(2,"Hieu", "Male", "StaffWC", "Marketing"));
-//        listPersonnel.put(3, new Personnel(3,"Phong Xoan", "Male", "Design", "Accounting"));
-//        listPersonnel.put(4, new Personnel(4,"Hien", "Female", "Thief", "Marketing"));
-//        listPersonnel.put(5, new Personnel(5,"Vu", "Male", "Staff", "Marketing"));
-//        listPersonnel.put(6, new Personnel(6,"Tung", "Bisexual", "Dancer", "Accounting"));
-//        listPersonnel.put(7, new Personnel(7,"Minh", "Male", "Teacher", "Finance"));
-//        listPersonnel.put(8, new Personnel(8,"Tran", "Female", "QA", "Marketing"));
-//        listPersonnel.put(9, new Personnel(9,"Si Phong", "Male", "Boss", "Accounting"));
         read();
     }
 
@@ -122,20 +113,12 @@ public final class PersonnelManagement  {
         write();
     }
 
-    public void displayPersonnelById(int id){
-        this.searchById(id).toString();
-        write();
-    }
-
-
     public void display() {
-        StringBuilder text = new StringBuilder("");
+        StringBuilder text = new StringBuilder();
         for (Map.Entry<Integer, Personnel> entry : listPersonnel.entrySet()) {
             Integer key = entry.getKey();
             Personnel value = entry.getValue();
-            text.append( key + "  || " + value.getName() + "|| Gender: " + value.getGender() + "|| Position: "
-                    + value.getPosition() + "|| Department: "
-                    + value.getBelongDepartment() + " || status: "+ value.isStatus()+ ".\n");
+            if(value.isStatus()) text.append(key).append("  || ").append(value.getName()).append("|| Gender: ").append(value.getGender()).append("|| Position: ").append(value.getPosition()).append("|| Department: ").append(value.getBelongDepartment()).append(" || status: ").append(value.isStatus()).append(".\n");
         }
         System.out.println(text);
     }

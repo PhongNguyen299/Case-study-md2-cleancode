@@ -1,10 +1,5 @@
 package Project;
 
-import Department.Department;
-
-import java.util.LinkedList;
-import java.util.List;
-
 public class Project {
     int id;
     private String name;
@@ -93,6 +88,10 @@ public class Project {
 
     public void setIdDepartmentResponsible(int idDepartmentResponsible) {
         this.idDepartmentResponsible = idDepartmentResponsible;
+    }
+
+    public String toFile(){
+        return id + "," + name + "," + description  + "," + startTime + ","  + idDepartmentResponsible;
     }
 
     @Override
