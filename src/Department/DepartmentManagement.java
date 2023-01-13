@@ -1,22 +1,26 @@
 package Department;
 
-import Department.Department;
 import Personnel.Personnel;
 
 import java.io.*;
 import java.util.*;
 
+import static Personnel.PersonnelManagement.getPersonnelManagement;
+
 
 public final class DepartmentManagement {
     private static volatile DepartmentManagement departmentManagement;
     private Map <Integer,Department> listDepartment;
+    Map<Integer, Personnel> listPerson = getPersonnelManagement().getListPersonnel();
+
 
     private DepartmentManagement(){
         listDepartment = new HashMap<Integer, Department>();
+//        listDepartment.put(1, new Department(1,"Marketing"));
+//        listDepartment.put(2,new Department(2,"Accounting"));
+//        listDepartment.put(3,new Department(3,"Finance"));
         read();
-//        listDepartment.put(1,new Department("Marketing"));
-//        listDepartment.put(2,new Department("Accounting"));
-//        listDepartment.put(3,new Department("Finance"));
+        updateAmount();
     };
 
     public static DepartmentManagement getDepartmentManagement(){
@@ -38,10 +42,12 @@ public final class DepartmentManagement {
         if (department != null){
             listDepartment.put(id, department);
         }
+        write();
     }
 
     public void remove(int id){
-            listDepartment.remove(id);
+        listDepartment.remove(id);
+        write();
     }
 
     public Department searchById(int id) {
@@ -62,8 +68,9 @@ public final class DepartmentManagement {
     }
 
 
-    public void fixName(Department obj, String name){
-        obj.setName(name);
+    public void fixName(int id, String name){
+        listDepartment.get(id).setName(name);
+        write();
     }
 
     public void displayById(int id){
@@ -75,9 +82,21 @@ public final class DepartmentManagement {
         for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
             Integer key = entry.getKey();
             Department value = entry.getValue();
-            text.append(key).append("  || ").append(value.getName()).append(" amount of department's member: ").append(listDepartment.get(key).getMemberDepartment().size()).append("\n");
+            text.append(key).append("  || ").append(value.getName()).append(" amount of department's member: ").append(listDepartment.get(key).getAmount()).append("\n");
         }
         System.out.println(text);
+    }
+
+    public void updateAmount(){
+        for (Department department : listDepartment.values()) {
+            int count = 0;
+            for (Personnel person: listPerson.values()){
+                if (department.getName().equals(person.getBelongDepartment()) && person.isStatus()){
+                    count++;
+                }
+                department.setAmount(count);
+            }
+        }
     }
 
     public void read(){
@@ -103,7 +122,7 @@ public final class DepartmentManagement {
         BufferedWriter bufferedWriter = null;
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("src/FilText/Department.txt");
+            fileWriter = new FileWriter("src/FileText/Department.txt");
             bufferedWriter = new BufferedWriter(fileWriter);
             for (Map.Entry<Integer, Department> entry : listDepartment.entrySet()) {
                 Department value = entry.getValue();

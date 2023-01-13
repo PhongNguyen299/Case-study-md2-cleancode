@@ -13,23 +13,13 @@ public class Personnel {
     private String belongDepartment;
     private String position;
     private double salary;
-    private List<Date> attendance;
+    private List<String> attendance;
     private boolean isStatus;
 
     private Personnel(){};
 
     public Personnel(int id,String name, String gender, String position,String belongDepartment){
         this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.position = position;
-        this.belongDepartment = belongDepartment;
-        this.attendance = new LinkedList<>();
-        this.isStatus = true;
-
-    }
-
-    public Personnel(String name, String gender, String position,String belongDepartment){
         this.name = name;
         this.gender = gender;
         this.position = position;
@@ -78,13 +68,14 @@ public class Personnel {
         this.salary = salary;
     }
 
-    public List<Date> getAttendance() {
+    public List<String> getAttendance() {
         return attendance;
     }
 
     public void checkin(){
         DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        this.attendance.add(new Date());
+        String dateformat = df.format(new Date());
+        this.attendance.add(dateformat);
     }
 
     public boolean isStatus() {

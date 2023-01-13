@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.Scanner;
 import Personnel.Personnel;
 import Project.Project;
+import Personnel.PersonnelMenu;
 
 import static Department.DepartmentManagement.getDepartmentManagement;
 import static Personnel.PersonnelManagement.getPersonnelManagement;
@@ -37,7 +38,7 @@ public class DepartmentMenu {
     public void loadMenuDepartment(){
         updateDepartmentMember();
         int choice = -1;
-        while (choice != 8) {
+        while (choice != 0) {
             showMenuDepartment();
             System.out.print("Enter your choice: ");
             choice = input.nextInt();
@@ -52,9 +53,11 @@ public class DepartmentMenu {
                     getDepartmentManagement().display();
                 }
                 case 6 -> displayMemberOfDepartment();
-                case 7 -> displayProjectODepartment();
+                case 7 -> displayProjectOfDepartment();
                 case 8 -> updateDepartmentMember();
+                case 9 ->  choice =0;
                 default -> {
+                    System.out.println("Choose other number");
                 }
             }
         }
@@ -80,9 +83,9 @@ public class DepartmentMenu {
 
     public void addDepartment() {
         System.out.println("Please enter information new department");
-        int id = listDepart.size()+1;
+        int id = listDepart.size() + 1;
         String department = inputDepartment();
-        Department obj = new Department(department);
+        Department obj = new Department(id,department);
 
         getDepartmentManagement().add(id,obj);
     }
@@ -127,20 +130,23 @@ public class DepartmentMenu {
 
     public void fixDepartment() {
         int id = inputID();
-        System.out.println(listDepart.get(id).getName());
+        System.out.println(listDepart.get(id).toString());
 
         int choice = -1;
         while (choice != 0) {
             System.out.println("1. Fix name: ");
+            System.out.println("2. Fix member of department");
             System.out.println("0. Cancel: ");
 
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
+                case 1 -> {
                     String name = inputName();
-                    listDepart.get(id).setName(name);
-                    break;
+                    getDepartmentManagement().fixName(id,name);}
+                case 2-> fixMemberOfDepartment(id);
+                case 3 -> choice =0;
+                default -> System.out.println("Choice other");
             }
         }
     }
@@ -155,7 +161,14 @@ public class DepartmentMenu {
         };
         System.out.println(text);
     }
-    public void displayProjectODepartment(){
+
+    public void fixMemberOfDepartment(int id){
+        for(int numD:listDepart.get(id).getMemberDepartment()){
+            listPerson.get(numD).toString();
+        }
+        new PersonnelMenu().fixPer();
+    }
+    public void displayProjectOfDepartment(){
         updateProjectContain();
         StringBuilder text = new StringBuilder();
         getDepartmentManagement().display();

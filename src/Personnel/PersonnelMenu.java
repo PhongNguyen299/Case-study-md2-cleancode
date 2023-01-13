@@ -27,32 +27,19 @@ public class PersonnelMenu {
 
     public void loadMenuPersonnel(){
         int choice = -1;
-        while (choice != 7) {
+        while (choice != 0) {
             showMenuPersonnel();
             System.out.print("Enter your choice: ");
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
-                    addPer();
-                    break;
-                case 2:
-                    removePer();
-                    break;
-                case 3:
-                    fixPer();
-                    break;
-                case 4:
-                    search();
-                    break;
-                case 5:
-                    getPersonnelManagement().display();
-                    break;
-                case 6:
-                    displaySalary();
-                    break;
-                case 7:
-                    break;
+                case 1 -> addPer();
+                case 2 -> removePer();
+                case 3 ->fixPer();
+                case 4 ->search();
+                case 5-> getPersonnelManagement().display();
+                case 6-> displaySalary();
+                case 7-> choice =0;
             }
         }
     }
@@ -146,7 +133,7 @@ public class PersonnelMenu {
     public void fixPer() {
         int id = inputID();
         Personnel person = listPerson.get(id);
-        System.out.println(listPerson.get(id).getName());
+        System.out.println(person.getName());
 
         int choice = -1;
         while (choice != 0) {
@@ -169,14 +156,14 @@ public class PersonnelMenu {
                 case 3 -> {
                     String department = inputDepartment();
                     getPersonnelManagement().fixDepartment(person,department);
-
                 }
+                case 0 -> choice=0;
             }
         }
     }
 
     public void showAttendance(int id){
-        for (Date date: listPerson.get(id).getAttendance()) {
+        for (String date: listPerson.get(id).getAttendance()) {
             System.out.println(date + "\n") ;
         }
     }

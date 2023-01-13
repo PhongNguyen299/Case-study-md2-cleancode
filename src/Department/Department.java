@@ -1,16 +1,11 @@
 package Department;
 
-import Personnel.Personnel;
-import Project.Project;
-
 import java.util.*;
 
 public class Department {
     private int id;
     private String name;
     private int amount;
-
-    private String function;
 
     private List <Integer> projectContain;
     private List <Integer> memberDepartment;

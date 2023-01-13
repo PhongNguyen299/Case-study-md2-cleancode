@@ -1,36 +1,17 @@
-import Department.Department;
 import Department.DepartmentMenu;
 import Personnel.Personnel;
-
 import Personnel.PersonnelMenu;
-import Project.Project;
 import Project.ProjectMenu;
-
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
-
-import static Department.DepartmentManagement.getDepartmentManagement;
 import static Personnel.PersonnelManagement.getPersonnelManagement;
-import static Project.ProjectManagement.getProjectManagement;
 
 public class Main {
     Scanner input = new Scanner(System.in);
-    Map<Integer, Department> listDepart = getDepartmentManagement().getListDepartment();
-
     Map<Integer, Personnel> listPerson = getPersonnelManagement().getListPersonnel();
 
-    Map<Integer, Project> listPro = getProjectManagement().getListProject();
-
     public static void main(String[] args) throws IOException {
-//        new DepartmentMenu().loadMenuDepartment();
-//        new PersonnelMenu().loadMenuPersonnel();
-//        new ProjectMenu().loadMenuProject();
-//        mainMenu();
-//        getPersonnelManagement().write();
-//        getPersonnelManagement().read();
-//        getDepartmentManagement().write();
-//        getDepartmentManagement().read();
         new Main().login();
     }
 
@@ -113,21 +94,11 @@ public class Main {
             choice = input.nextInt();
             input.nextLine();
             switch (choice) {
-                case 1:
-                    checkInDaily(id);
-                    break;
-                case 2:
-                    new PersonnelMenu().showAttendance(id);
-                    break;
-                case 3:
-                    new PersonnelMenu().fixPer();
-                    break;
-                case 0:
-                    login();
-                    break;
-                default:
-                    choice = -2;
-                    break;
+                case 1 -> checkInDaily(id);
+                case 2 -> new PersonnelMenu().showAttendance(id);
+                case 3 -> new PersonnelMenu().fixPer();
+                case 0 -> login();
+                default -> choice = 4;
             }
         }
     }

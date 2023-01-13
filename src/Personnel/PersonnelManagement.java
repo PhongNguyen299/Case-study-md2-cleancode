@@ -7,7 +7,6 @@ import Department.DepartmentManagement;
 
 public final class PersonnelManagement  {
     private static volatile PersonnelManagement personnelManagement;
-    private String path = "Personnel.txt";
     private Map<Integer, Personnel> listPersonnel;
 
 
@@ -37,13 +36,6 @@ public final class PersonnelManagement  {
             write();
         }
     }
-
-//    public void remove(int id){
-//        Personnel person = searchById(id);
-//        if(person != null){
-//            listPersonnel.remove(id);
-//        };
-//    }
 
     public void remove(int id){
         Personnel person = searchById(id);

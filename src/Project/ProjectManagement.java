@@ -16,6 +16,7 @@ public final class ProjectManagement {
         listProject.put(3,new Project(3,"moto","new moto","9/9/2023",2));
         listProject.put(4,new Project(4,"plane","new plane","9/9/2023",3));
         listProject.put(5,new Project(5,"keyboard","new keyboard","9/9/2023",1));
+        read();
     };
 
     public static ProjectManagement getProjectManagement(){
@@ -37,10 +38,12 @@ public final class ProjectManagement {
         if (project != null){
             listProject.put(id, project);
         }
+        write();
     }
 
     public void remove(int id){
         listProject.remove(id);
+        write();
     }
 
     public Project searchById(int id) {
@@ -92,7 +95,7 @@ public final class ProjectManagement {
         BufferedWriter bufferedWriter = null;
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("src/FileText/Personnel.txt");
+            fileWriter = new FileWriter("src/FileText/Project.txt");
             bufferedWriter = new BufferedWriter(fileWriter);
             for (Map.Entry<Integer, Project> entry : listProject.entrySet()) {
                 Project value = entry.getValue();
